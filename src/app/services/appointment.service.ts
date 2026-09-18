@@ -12,7 +12,7 @@ export class AppointmentService {
       experience: 12,
       rating: 4.9,
       availability: ['09:00', '09:30', '10:00', '11:30', '15:00', '16:30'],
-      color: '#3b82f6',
+      color: '#6087c7',
     },
     {
       id: 2,
@@ -102,6 +102,10 @@ export class AppointmentService {
     );
   }
 
+  getAppointmentById(id: number): Appointment | undefined {
+    return this.appointments.find((appointment) => appointment.id === id);
+  }
+
   getAvailableSlots(doctorId: number): string[] {
     const doctor = this.getDoctorById(doctorId);
     return doctor?.availability ?? [];
@@ -131,6 +135,33 @@ export class AppointmentService {
 
     this.appointments = [newAppointment, ...this.appointments];
     return newAppointment;
+  }
+
+  updateAppointment(id: number, request: NewAppointmentRequest): Appointment {
+    const appointment = this.getAppointmentById(id);
+    const doctor = this.getDoctorById(request.doctorId);
+
+    if (!appointment) {
+      throw new Error('La cita seleccionada no existe.');
+    }
+    if (!doctor) {
+      throw new Error('El médico seleccionado no existe.');
+    }
+
+    const updatedAppointment: Appointment = {
+      ...appointment,
+      patientName: request.patientName,
+      patientEmail: request.patientEmail,
+      doctorId: doctor.id,
+      doctorName: `${doctor.name} ${doctor.lastname}`,
+      specialty: doctor.specialty,
+      date: request.date,
+      time: request.time,
+      reason: request.reason,
+    };
+
+    this.appointments = this.appointments.map((item) => (item.id === id ? updatedAppointment : item));
+    return updatedAppointment;
   }
 
   cancelAppointment(id: number): void {

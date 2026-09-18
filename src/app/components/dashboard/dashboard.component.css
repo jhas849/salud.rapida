@@ -9,7 +9,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 24px;
-  background: linear-gradient(135deg, #0f172a, #0b4a92);
+  background: linear-gradient(135deg, #df4aa1, #0b4a92);
   padding: 32px;
   border-radius: 22px;
   color: white;
@@ -276,6 +276,12 @@
 .quick-field select:focus {
   outline: 2px solid #f7b7a7;
   border-color: #e07462;
+}
+
+.field-error {
+  color: #b91c1c;
+  font-size: 0.75rem;
+  font-weight: 700;
 }
 
 .confirm-booking {

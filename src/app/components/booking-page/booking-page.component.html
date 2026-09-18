@@ -11,17 +11,22 @@
         <option value="">Selecciona un médico</option>
         <option *ngFor="let doctor of doctors" [value]="doctor.id">{{ doctor.name }} {{ doctor.lastname }} · {{ doctor.specialty }}</option>
       </select>
+      <small class="field-error" *ngIf="hasError('doctorId', 'required')">Selecciona un médico.</small>
     </div>
 
     <div class="field-grid two-columns">
       <div class="field-group">
         <label for="patientName">Paciente</label>
         <input id="patientName" type="text" formControlName="patientName" placeholder="Nombre completo" />
+        <small class="field-error" *ngIf="hasError('patientName', 'required')">Escribe el nombre del paciente.</small>
+        <small class="field-error" *ngIf="hasError('patientName', 'minlength')">Usa al menos 3 caracteres.</small>
       </div>
 
       <div class="field-group">
         <label for="patientEmail">Correo electrónico</label>
         <input id="patientEmail" type="email" formControlName="patientEmail" placeholder="correo@ejemplo.com" />
+        <small class="field-error" *ngIf="hasError('patientEmail', 'required')">Escribe un correo.</small>
+        <small class="field-error" *ngIf="hasError('patientEmail', 'email')">Escribe un correo válido.</small>
       </div>
     </div>
 
@@ -29,6 +34,7 @@
       <div class="field-group">
         <label for="date">Fecha</label>
         <input id="date" type="date" formControlName="date" />
+        <small class="field-error" *ngIf="hasError('date', 'required')">Selecciona una fecha.</small>
       </div>
 
       <div class="field-group">
@@ -37,12 +43,15 @@
           <option value="">Selecciona un horario</option>
           <option *ngFor="let slot of slotOptions" [value]="slot">{{ slot }}</option>
         </select>
+        <small class="field-error" *ngIf="hasError('time', 'required')">Selecciona una hora.</small>
       </div>
     </div>
 
     <div class="field-group">
       <label for="reason">Motivo de consulta</label>
       <textarea id="reason" rows="4" formControlName="reason" placeholder="Describe brevemente el motivo de la cita"></textarea>
+      <small class="field-error" *ngIf="hasError('reason', 'required')">Indica el motivo de la consulta.</small>
+      <small class="field-error" *ngIf="hasError('reason', 'minlength')">Usa al menos 5 caracteres.</small>
     </div>
 
     <div class="form-actions">

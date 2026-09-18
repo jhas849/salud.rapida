@@ -11,7 +11,7 @@
 .page-header h1 {
   margin: 0;
   font-size: clamp(2rem, 3vw, 2.8rem);
-  color: #0f172a;
+  color: #c297bb;
 }
 
 .eyebrow {
@@ -19,7 +19,7 @@
   text-transform: uppercase;
   letter-spacing: 0.12em;
   font-size: 0.72rem;
-  color: #2563eb;
+  color: #a34183;
   font-weight: 700;
 }
 
@@ -85,6 +85,66 @@
   color: #b91c1c;
 }
 
+.row-actions,
+.edit-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.edit-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 10px;
+  padding: 0.7rem 0.9rem;
+  background: #f4d9e4;
+  color: #8f4165;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.edit-form {
+  display: grid;
+  gap: 16px;
+  padding: 20px;
+  border-bottom: 1px solid #e2e8f0;
+  background: #fff8fb;
+}
+
+.edit-form h2 {
+  margin: 0;
+  color: #8f4165;
+  font-size: 1.1rem;
+}
+
+.edit-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.edit-grid label {
+  display: grid;
+  gap: 6px;
+  color: #6b4050;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.edit-grid input,
+.edit-grid select {
+  width: 100%;
+  min-width: 0;
+  padding: 9px 10px;
+  border: 1px solid #ebcbd7;
+  border-radius: 8px;
+  background: white;
+  color: #4a2d3a;
+  font: inherit;
+}
+
 .empty-state {
   background: white;
   border-radius: 18px;
@@ -96,6 +156,10 @@
 
 @media (max-width: 760px) {
   .row {
+    grid-template-columns: 1fr;
+  }
+
+  .edit-grid {
     grid-template-columns: 1fr;
   }
 }

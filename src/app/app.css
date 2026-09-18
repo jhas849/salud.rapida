@@ -192,6 +192,28 @@ body {
   gap: 8px;
 }
 
+.account-session {
+  display: grid;
+  gap: 10px;
+}
+
+.account-session p,
+.account-message,
+.account-error {
+  margin: 0;
+  font-size: 0.85rem;
+}
+
+.account-message {
+  color: #16805f;
+  font-weight: 700;
+}
+
+.account-error {
+  color: #b91c1c;
+  font-weight: 700;
+}
+
 .account-form label {
   color: #805366;
   font-size: 0.82rem;

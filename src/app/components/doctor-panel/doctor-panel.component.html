@@ -5,6 +5,7 @@
   </div>
 
   <p class="success-message" *ngIf="successMessage">{{ successMessage }} La cita ya aparece en este panel.</p>
+  <p class="success-message" *ngIf="editMessage">{{ editMessage }}</p>
 
   <div class="appointment-table" *ngIf="appointments.length; else emptyState">
     <div class="row header-row">
@@ -15,13 +16,34 @@
       <span>Acción</span>
     </div>
 
-    <div class="row" *ngFor="let appointment of appointments">
-      <span>{{ appointment.patientName }}</span>
-      <span>{{ appointment.doctorName }}</span>
-      <span>{{ appointment.date | dateFormat }}</span>
-      <span class="status" [class.confirmed]="appointment.status === 'Confirmada'">{{ appointment.status }}</span>
-      <button type="button" class="cancel-btn" (click)="cancelAppointment(appointment.id)">Cancelar</button>
-    </div>
+    <ng-container *ngFor="let appointment of appointments">
+      <div class="row">
+        <span>{{ appointment.patientName }}</span>
+        <span>{{ appointment.doctorName }}</span>
+        <span>{{ appointment.date | dateFormat }}</span>
+        <span class="status" [class.confirmed]="appointment.status === 'Confirmada'">{{ appointment.status }}</span>
+        <span class="row-actions">
+          <button type="button" class="edit-btn" (click)="startEdit(appointment)">Editar</button>
+          <button type="button" class="cancel-btn" (click)="cancelAppointment(appointment.id)">Cancelar</button>
+        </span>
+      </div>
+
+      <form class="edit-form" *ngIf="editingId === appointment.id" [formGroup]="editForm" (ngSubmit)="updateAppointment()">
+        <h2>Editar cita de {{ appointment.patientName }}</h2>
+        <div class="edit-grid">
+          <label>Paciente<input type="text" formControlName="patientName" /></label>
+          <label>Correo<input type="email" formControlName="patientEmail" /></label>
+          <label>Médico<select formControlName="doctorId" (change)="updateEditSlots($any($event.target).value)"><option *ngFor="let doctor of doctors" [value]="doctor.id">{{ doctor.name }} {{ doctor.lastname }}</option></select></label>
+          <label>Fecha<input type="date" formControlName="date" /></label>
+          <label>Hora<select formControlName="time"><option value="">Selecciona una hora</option><option *ngFor="let slot of editSlotOptions" [value]="slot">{{ slot }}</option></select></label>
+          <label>Motivo<input type="text" formControlName="reason" /></label>
+        </div>
+        <div class="edit-actions">
+          <button type="submit" class="edit-btn">Guardar cambios</button>
+          <button type="button" class="cancel-btn" (click)="cancelEdit()">Cerrar</button>
+        </div>
+      </form>
+    </ng-container>
   </div>
 
   <ng-template #emptyState>

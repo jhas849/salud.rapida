@@ -34,29 +34,34 @@
             </button>
           </div>
 
-          @if (accountView === 'login') {
-            <form class="account-form" (ngSubmit)="closeAccountMenu()">
+          @if (currentUser) {
+            <div class="account-session">
+              <p>Sesión iniciada como <strong>{{ currentUser.name }}</strong></p>
+              <button class="primary-action" type="button" (click)="logout()">Cerrar sesión</button>
+            </div>
+          } @else if (accountView === 'login') {
+            <form class="account-form" (ngSubmit)="submitAccount()">
               <label for="login-email">Correo electrónico</label>
-              <input id="login-email" name="loginEmail" type="email" placeholder="tu@correo.com" required />
+              <input id="login-email" name="loginEmail" type="email" [(ngModel)]="accountEmail" placeholder="tu@correo.com" required />
               <label for="login-password">Contraseña</label>
-              <input id="login-password" name="loginPassword" type="password" placeholder="Contraseña" required />
+              <input id="login-password" name="loginPassword" type="password" [(ngModel)]="accountPassword" placeholder="Contraseña" required />
               <button class="primary-action" type="submit">Entrar a mi cuenta</button>
             </form>
           } @else {
-            <form class="account-form" (ngSubmit)="closeAccountMenu()">
-              @if (accountView === 'create') {
-                <label for="account-name">Nombre completo</label>
-                <input id="account-name" name="accountName" type="text" placeholder="Tu nombre" required />
-              }
+            <form class="account-form" (ngSubmit)="submitAccount()">
+              <label for="account-name">Nombre completo</label>
+              <input id="account-name" name="accountName" type="text" [(ngModel)]="accountName" placeholder="Tu nombre" required />
               <label for="account-email">Correo electrónico</label>
-              <input id="account-email" name="accountEmail" type="email" placeholder="tu@correo.com" required />
+              <input id="account-email" name="accountEmail" type="email" [(ngModel)]="accountEmail" placeholder="tu@correo.com" required />
               <label for="account-password">Contraseña</label>
-              <input id="account-password" name="accountPassword" type="password" placeholder="Crea una contraseña" required />
+              <input id="account-password" name="accountPassword" type="password" [(ngModel)]="accountPassword" placeholder="Crea una contraseña" required />
               <label for="account-confirm">Confirmar contraseña</label>
-              <input id="account-confirm" name="accountConfirm" type="password" placeholder="Repite tu contraseña" required />
+              <input id="account-confirm" name="accountConfirm" type="password" [(ngModel)]="accountConfirm" placeholder="Repite tu contraseña" required />
               <button class="primary-action" type="submit">{{ accountView === 'register' ? 'Registrarme' : 'Crear mi cuenta' }}</button>
             </form>
           }
+          @if (accountMessage) { <p class="account-message">{{ accountMessage }}</p> }
+          @if (accountError) { <p class="account-error">{{ accountError }}</p> }
         </div>
       }
     </div>

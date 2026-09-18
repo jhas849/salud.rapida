@@ -75,4 +75,9 @@ export class DashboardComponent {
       state: { successMessage: `Cita creada para ${appointment.patientName}.` },
     });
   }
+
+  hasBookingError(controlName: string): boolean {
+    const control = this.bookingForm.get(controlName);
+    return Boolean(control?.touched && control.invalid);
+  }
 }

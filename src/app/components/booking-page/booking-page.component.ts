@@ -73,4 +73,9 @@ export class BookingPageComponent implements OnInit {
     this.form.reset();
     this.slotOptions = [];
   }
+
+  hasError(controlName: string, errorName?: string): boolean {
+    const control = this.form.get(controlName);
+    return Boolean(control?.touched && (errorName ? control.hasError(errorName) : control.invalid));
+  }
 }

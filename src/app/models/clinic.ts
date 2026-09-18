@@ -9,6 +9,13 @@ export interface Doctor {
   color: string;
 }
 
+export interface User {
+  id: number;
+  name: string;
+  email: string;
+  password: string;
+}
+
 export interface Appointment {
   id: number;
   patientName: string;

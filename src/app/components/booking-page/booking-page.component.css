@@ -12,7 +12,7 @@
 .page-header h1 {
   margin: 0;
   font-size: clamp(2rem, 3vw, 2.8rem);
-  color: #0f172a;
+  color: #c548bf;
 }
 
 .eyebrow {
@@ -46,6 +46,12 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
+}
+
+.field-error {
+  color: #b91c1c;
+  font-size: 0.78rem;
+  font-weight: 700;
 }
 
 label {
