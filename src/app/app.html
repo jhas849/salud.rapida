@@ -1,0 +1,68 @@
+﻿<div class="app-shell">
+  <nav class="topbar" aria-label="Navegación principal">
+    <a routerLink="/" class="brand">Salud Rápida</a>
+    <div class="nav-links">
+      <a routerLink="/">Inicio</a>
+      <a routerLink="/citas">Reservar</a>
+      <a routerLink="/panel">Panel médico</a>
+    </div>
+    <div class="account-area">
+      <button class="account-trigger" type="button" aria-label="Abrir opciones de cuenta" [attr.aria-expanded]="isAccountMenuOpen" (click)="isAccountMenuOpen = !isAccountMenuOpen">
+        <span class="person-icon" aria-hidden="true">●</span>
+      </button>
+
+      @if (isAccountMenuOpen) {
+        <div class="account-popover" role="dialog" aria-label="Opciones de cuenta">
+          <div class="account-heading">
+            <span class="account-kicker">Tu espacio de salud</span>
+            <h2>{{ accountTitle }}</h2>
+            <button class="close-button" type="button" aria-label="Cerrar opciones de cuenta" (click)="closeAccountMenu()">×</button>
+          </div>
+
+          <div class="account-options" role="tablist" aria-label="Opciones de acceso">
+            <button type="button" [class.active]="accountView === 'login'" (click)="accountView = 'login'">
+              <span class="option-icon">↪</span>
+              <span><strong>Iniciar sesión</strong><small>Ya tengo una cuenta</small></span>
+            </button>
+            <button type="button" [class.active]="accountView === 'register'" (click)="accountView = 'register'">
+              <span class="option-icon">＋</span>
+              <span><strong>Registrarse</strong><small>Accede a tus citas</small></span>
+            </button>
+            <button type="button" [class.active]="accountView === 'create'" (click)="accountView = 'create'">
+              <span class="option-icon">✦</span>
+              <span><strong>Crear cuenta</strong><small>Comienza en minutos</small></span>
+            </button>
+          </div>
+
+          @if (accountView === 'login') {
+            <form class="account-form" (ngSubmit)="closeAccountMenu()">
+              <label for="login-email">Correo electrónico</label>
+              <input id="login-email" name="loginEmail" type="email" placeholder="tu@correo.com" required />
+              <label for="login-password">Contraseña</label>
+              <input id="login-password" name="loginPassword" type="password" placeholder="Contraseña" required />
+              <button class="primary-action" type="submit">Entrar a mi cuenta</button>
+            </form>
+          } @else {
+            <form class="account-form" (ngSubmit)="closeAccountMenu()">
+              @if (accountView === 'create') {
+                <label for="account-name">Nombre completo</label>
+                <input id="account-name" name="accountName" type="text" placeholder="Tu nombre" required />
+              }
+              <label for="account-email">Correo electrónico</label>
+              <input id="account-email" name="accountEmail" type="email" placeholder="tu@correo.com" required />
+              <label for="account-password">Contraseña</label>
+              <input id="account-password" name="accountPassword" type="password" placeholder="Crea una contraseña" required />
+              <label for="account-confirm">Confirmar contraseña</label>
+              <input id="account-confirm" name="accountConfirm" type="password" placeholder="Repite tu contraseña" required />
+              <button class="primary-action" type="submit">{{ accountView === 'register' ? 'Registrarme' : 'Crear mi cuenta' }}</button>
+            </form>
+          }
+        </div>
+      }
+    </div>
+  </nav>
+
+  <main class="page-content">
+    <router-outlet />
+  </main>
+</div>

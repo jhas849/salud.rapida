@@ -1,0 +1,32 @@
+<section class="panel-shell">
+  <div class="page-header">
+    <p class="eyebrow">Panel médico</p>
+    <h1>Gestión de citas</h1>
+  </div>
+
+  <p class="success-message" *ngIf="successMessage">{{ successMessage }} La cita ya aparece en este panel.</p>
+
+  <div class="appointment-table" *ngIf="appointments.length; else emptyState">
+    <div class="row header-row">
+      <span>Paciente</span>
+      <span>Médico</span>
+      <span>Fecha</span>
+      <span>Estado</span>
+      <span>Acción</span>
+    </div>
+
+    <div class="row" *ngFor="let appointment of appointments">
+      <span>{{ appointment.patientName }}</span>
+      <span>{{ appointment.doctorName }}</span>
+      <span>{{ appointment.date | dateFormat }}</span>
+      <span class="status" [class.confirmed]="appointment.status === 'Confirmada'">{{ appointment.status }}</span>
+      <button type="button" class="cancel-btn" (click)="cancelAppointment(appointment.id)">Cancelar</button>
+    </div>
+  </div>
+
+  <ng-template #emptyState>
+    <div class="empty-state">
+      <p>No hay citas programadas en este momento.</p>
+    </div>
+  </ng-template>
+</section>

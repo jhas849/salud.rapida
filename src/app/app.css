@@ -1,0 +1,257 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #fff7fa 0%, #ffffff 52%, #fdf0f5 100%);
+  color: #4a2d3a;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+.app-shell {
+  min-height: 100vh;
+}
+
+.topbar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  background: linear-gradient(120deg, #d99aae, #c87e99);
+  color: white;
+  padding: 1rem 2rem;
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.15);
+}
+
+.brand {
+  color: white;
+  text-decoration: none;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nav-links a {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.nav-links a:hover {
+  color: white;
+}
+
+.account-area {
+  position: relative;
+  margin-left: auto;
+}
+
+.account-trigger {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #b66482;
+  cursor: pointer;
+  transition: transform 160ms ease, background 160ms ease;
+}
+
+.account-trigger:hover {
+  transform: translateY(-2px);
+  background: #fbe6ed;
+}
+
+.person-icon {
+  position: relative;
+  display: block;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  background: #c87e99;
+  color: transparent;
+}
+
+.person-icon::after {
+  content: '';
+  position: absolute;
+  left: -4px;
+  bottom: -6px;
+  width: 25px;
+  height: 13px;
+  border-radius: 14px 14px 5px 5px;
+  background: #c87e99;
+}
+
+.account-popover {
+  position: absolute;
+  z-index: 10;
+  top: calc(100% + 14px);
+  right: 0;
+  width: min(390px, calc(100vw - 32px));
+  padding: 22px;
+  border: 1px solid rgba(200, 126, 153, 0.2);
+  border-radius: 18px;
+  background: #fffdfd;
+  color: #6b4050;
+  box-shadow: 0 18px 45px rgba(200, 126, 153, 0.2);
+}
+
+.account-heading {
+  position: relative;
+  padding-right: 28px;
+}
+
+.account-kicker {
+  color: #b66482;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.account-heading h2 {
+  margin: 5px 0 16px;
+  font-size: 1.4rem;
+}
+
+.close-button {
+  position: absolute;
+  top: -8px;
+  right: -4px;
+  border: 0;
+  background: transparent;
+  color: #6b7b80;
+  font-size: 1.7rem;
+  cursor: pointer;
+}
+
+.account-options {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.account-options button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border: 1px solid #efd5df;
+  border-radius: 10px;
+  background: white;
+  color: #6b4050;
+  text-align: left;
+  cursor: pointer;
+}
+
+.account-options button.active,
+.account-options button:hover {
+  border-color: #d99aae;
+  background: #fff1f5;
+}
+
+.option-icon {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: #fbe6ed;
+  color: #b66482;
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+
+.account-options strong,
+.account-options small {
+  display: block;
+}
+
+.account-options small {
+  margin-top: 2px;
+  color: #8f6a79;
+}
+
+.account-form {
+  display: grid;
+  gap: 8px;
+}
+
+.account-form label {
+  color: #805366;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.account-form input {
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid #ebcbd7;
+  border-radius: 8px;
+  color: #6b4050;
+  font: inherit;
+}
+
+.account-form input:focus {
+  outline: 2px solid #f3c2d1;
+  border-color: #c87e99;
+}
+
+.primary-action {
+  margin-top: 8px;
+  padding: 12px;
+  border: 0;
+  border-radius: 8px;
+  background: #c87e99;
+  color: white;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.primary-action:hover {
+  background: #b66482;
+}
+
+@media (max-width: 680px) {
+  .topbar {
+    flex-wrap: wrap;
+    padding: 1rem;
+  }
+
+  .nav-links {
+    order: 3;
+    width: 100%;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .nav-links a {
+    font-size: 0.85rem;
+  }
+
+  .account-popover {
+    position: fixed;
+    top: 78px;
+    right: 16px;
+  }
+}
+
+.page-content {
+  padding: 24px 0 40px;
+}

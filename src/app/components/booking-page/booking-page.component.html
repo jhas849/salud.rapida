@@ -1,0 +1,55 @@
+<section class="booking-shell">
+  <div class="page-header">
+    <p class="eyebrow">Agendamiento</p>
+    <h1>Solicitar nueva cita</h1>
+  </div>
+
+  <form class="booking-form" [formGroup]="form" (ngSubmit)="submit()">
+    <div class="field-group">
+      <label for="doctorId">Médico</label>
+      <select id="doctorId" formControlName="doctorId">
+        <option value="">Selecciona un médico</option>
+        <option *ngFor="let doctor of doctors" [value]="doctor.id">{{ doctor.name }} {{ doctor.lastname }} · {{ doctor.specialty }}</option>
+      </select>
+    </div>
+
+    <div class="field-grid two-columns">
+      <div class="field-group">
+        <label for="patientName">Paciente</label>
+        <input id="patientName" type="text" formControlName="patientName" placeholder="Nombre completo" />
+      </div>
+
+      <div class="field-group">
+        <label for="patientEmail">Correo electrónico</label>
+        <input id="patientEmail" type="email" formControlName="patientEmail" placeholder="correo@ejemplo.com" />
+      </div>
+    </div>
+
+    <div class="field-grid two-columns">
+      <div class="field-group">
+        <label for="date">Fecha</label>
+        <input id="date" type="date" formControlName="date" />
+      </div>
+
+      <div class="field-group">
+        <label for="time">Hora disponible</label>
+        <select id="time" formControlName="time">
+          <option value="">Selecciona un horario</option>
+          <option *ngFor="let slot of slotOptions" [value]="slot">{{ slot }}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="field-group">
+      <label for="reason">Motivo de consulta</label>
+      <textarea id="reason" rows="4" formControlName="reason" placeholder="Describe brevemente el motivo de la cita"></textarea>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="primary-btn">Confirmar cita</button>
+      <a routerLink="/" class="secondary-btn text-link">Volver al inicio</a>
+    </div>
+
+    <p class="success-message" *ngIf="successMessage">{{ successMessage }}</p>
+  </form>
+</section>

@@ -1,0 +1,105 @@
+<section class="dashboard-shell">
+  <header class="hero">
+    <div>
+      <p class="eyebrow">Clínica Salud Rápida</p>
+      <h1>Reserva de citas médicas</h1>
+      <p class="subtitle">Sistema moderno para agendar consultas, revisar disponibilidad y confirmar turnos en línea.</p>
+    </div>
+    <div class="hero-actions">
+      <a routerLink="/citas" class="primary-btn">Reservar cita</a>
+      <a routerLink="/panel" class="secondary-btn">Ver panel</a>
+    </div>
+  </header>
+
+  <section class="stats-grid">
+    <article class="stat-card">
+      <span>Total médicos</span>
+      <strong>{{ doctors.length }}</strong>
+    </article>
+    <article class="stat-card">
+      <span>Citas hoy</span>
+      <strong>{{ appointments.length }}</strong>
+    </article>
+    <article class="stat-card">
+      <span>Confirmadas</span>
+      <strong>{{ appointments.filter(item => item.status === 'Confirmada').length }}</strong>
+    </article>
+  </section>
+
+  <section class="content-grid">
+    <article class="panel doctors-panel">
+      <div class="section-header">
+        <h2>Médicos disponibles</h2>
+      </div>
+      <div class="doctor-list">
+        <article
+          class="doctor-card"
+          *ngFor="let doctor of doctors"
+          [class.selected]="selectedDoctor?.id === doctor.id"
+          tabindex="0"
+          (click)="selectDoctor(doctor)"
+          (keydown.enter)="selectDoctor(doctor)"
+          (keydown.space)="$event.preventDefault(); selectDoctor(doctor)"
+        >
+          <div class="doctor-avatar" [style.background]="doctor.color">{{ doctor.name[0] }}{{ doctor.lastname[0] }}</div>
+          <div class="doctor-info">
+            <h3>{{ doctor | doctorName }}</h3>
+            <p>{{ doctor.specialty }}</p>
+            <small>{{ doctor.experience }} años de experiencia</small>
+          </div>
+          <div class="rating">★ {{ doctor.rating }}</div>
+          <span class="book-hint">Reservar</span>
+
+          @if (selectedDoctor?.id === doctor.id) {
+            <form class="quick-booking" [formGroup]="bookingForm" (ngSubmit)="submitBooking(); $event.stopPropagation()" (click)="$event.stopPropagation()">
+              <div class="quick-booking-header">
+                <div>
+                  <span class="form-kicker">Nueva cita</span>
+                  <h3>Agendar con {{ doctor | doctorName }}</h3>
+                </div>
+                <button type="button" class="close-booking" aria-label="Cerrar formulario" (click)="closeBooking(); $event.stopPropagation()">×</button>
+              </div>
+
+              <div class="quick-fields">
+                <div class="quick-field">
+                  <label [for]="'patient-' + doctor.id">Nombre de la persona</label>
+                  <input [id]="'patient-' + doctor.id" type="text" formControlName="patientName" placeholder="Nombre completo" />
+                </div>
+                <div class="quick-field">
+                  <label [for]="'date-' + doctor.id">Fecha</label>
+                  <input [id]="'date-' + doctor.id" type="date" formControlName="date" />
+                </div>
+                <div class="quick-field">
+                  <label [for]="'time-' + doctor.id">Hora</label>
+                  <select [id]="'time-' + doctor.id" formControlName="time">
+                    <option value="">Escoge una hora</option>
+                    <option *ngFor="let slot of slotOptions" [value]="slot">{{ slot }}</option>
+                  </select>
+                </div>
+              </div>
+
+              <button type="submit" class="confirm-booking">Confirmar cita</button>
+              @if (bookingMessage) {
+                <p class="booking-message">{{ bookingMessage }}</p>
+              }
+            </form>
+          }
+        </article>
+      </div>
+    </article>
+
+    <article class="panel appointments-panel">
+      <div class="section-header">
+        <h2>Próximas citas</h2>
+      </div>
+      <div class="appointment-list">
+        <div class="appointment-item" *ngFor="let item of appointments">
+          <div class="appointment-badge" [class.confirmed]="item.status === 'Confirmada'">{{ item.status }}</div>
+          <h3>{{ item.patientName }}</h3>
+          <p>{{ item.specialty }} · {{ item.doctorName }}</p>
+          <small>{{ item.date | dateFormat }}</small>
+        </div>
+      </div>
+    </article>
+  </section>
+</section>
